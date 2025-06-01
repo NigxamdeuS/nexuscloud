@@ -1,0 +1,16 @@
+{
+    "name": "nexuscloud/php-backend",
+    "description": "NexusCloud PHP Backend",
+    "type": "project",
+    "require": {
+        "php": ">=8.0",
+        "aws/aws-sdk-php": "^3.0",
+        "phpmailer/phpmailer": "^6.8",
+        "robthree/twofactorauth": "^1.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "NexusCloud\\": "src/"
+        }
+    }
+} 

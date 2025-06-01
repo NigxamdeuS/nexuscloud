@@ -1,0 +1,32 @@
+# 環境設定ファイル
+.env
+.env.*
+!.env.example
+
+# 依存関係
+/vendor/
+/node_modules/
+
+# キャッシュファイル
+*.log
+*.cache
+.phpunit.result.cache
+
+# IDE設定
+.idea/
+.vscode/
+*.sublime-*
+
+# システムファイル
+.DS_Store
+Thumbs.db
+
+# ビルドファイル
+/public/build/
+/public/hot/
+/public/storage/
+/storage/*.key
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/* 

@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "nexuscloud",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authnexuscloud17c3e5c3",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

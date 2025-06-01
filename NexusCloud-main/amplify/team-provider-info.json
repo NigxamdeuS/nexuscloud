@@ -1,0 +1,52 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-nexuscloud-dev-5a48b-authRole",
+      "UnauthRoleArn": "arn:aws:iam::017820697458:role/amplify-nexuscloud-dev-5a48b-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::017820697458:role/amplify-nexuscloud-dev-5a48b-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-nexuscloud-dev-5a48b-deployment",
+      "UnauthRoleName": "amplify-nexuscloud-dev-5a48b-unauthRole",
+      "StackName": "amplify-nexuscloud-dev-5a48b",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:017820697458:stack/amplify-nexuscloud-dev-5a48b/196c2d10-e2e6-11ef-86fb-0a7b4c57f1cd",
+      "AmplifyAppId": "d3sou9ly4kcspq",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-nexuscloud-dev-5a48b-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "nexuscloud17c3e5c3": {},
+        "userPoolGroups": {}
+      },
+      "function": {
+        "nexuscloud17c3e5c3DefineAuthChallenge": {
+          "deploymentBucketName": "amplify-nexuscloud-dev-5a48b-deployment",
+          "s3Key": "amplify-builds/nexuscloud17c3e5c3DefineAuthChallenge-4d76684f30754c584e73-build.zip"
+        },
+        "nexuscloud17c3e5c3CreateAuthChallenge": {
+          "deploymentBucketName": "amplify-nexuscloud-dev-5a48b-deployment",
+          "s3Key": "amplify-builds/nexuscloud17c3e5c3CreateAuthChallenge-3979396e5a307965786b-build.zip"
+        },
+        "nexuscloud17c3e5c3VerifyAuthChallengeResponse": {
+          "RECAPTCHASECRET": "6Lcgo9AqAAAAAOy9lNtNIOwY18aw6Sd8ZNI9_AnV",
+          "deploymentBucketName": "amplify-nexuscloud-dev-5a48b-deployment",
+          "s3Key": "amplify-builds/nexuscloud17c3e5c3VerifyAuthChallengeResponse-3562595164536e566858-build.zip"
+        },
+        "nexuscloud17c3e5c3CustomMessage": {
+          "REDIRECTURL": "http://localhost:3000/",
+          "EMAILSUBJECT": "[NexusCloud] アカウント確認コード",
+          "EMAILMESSAGE": "NexusCloud にご登録いただきありがとうございます！  以下の確認コードを入力し、アカウントを認証してください。  確認コード: {####}  このコードは一定時間のみ有効ですので、お早めにご入力ください。",
+          "deploymentBucketName": "amplify-nexuscloud-dev-5a48b-deployment",
+          "s3Key": "amplify-builds/nexuscloud17c3e5c3CustomMessage-306944484e6f356e6f42-build.zip"
+        },
+        "AdminQueries87d04813": {
+          "deploymentBucketName": "amplify-nexuscloud-dev-5a48b-deployment",
+          "s3Key": "amplify-builds/AdminQueries87d04813-7a49666636586b66656e-build.zip"
+        }
+      },
+      "api": {
+        "nexuscloud": {},
+        "AdminQueries": {}
+      }
+    }
+  }
+}

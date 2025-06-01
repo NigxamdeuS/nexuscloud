@@ -1,0 +1,55 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type User @model @auth(rules: [
+  { allow: owner }, # 自分のデータのみ編集可
+  { allow: groups, groups: ["Admins"], operations: [read, update, delete] } # 管理者は全操作可
+]) {
+  id: ID!
+  name: String!
+  role: String! # "student" or "teacher"
+  tags: [String]
+}
+
+type Lecture @model @auth(rules: [
+  { allow: groups, groups: ["Teachers"], operations: [create, update, delete] }, # 教師のみ編集可
+  { allow: groups, groups: ["Students"], operations: [read] } # 学生は閲覧のみ
+]) {
+  id: ID!
+  title: String!
+  description: String
+  teacher: User @hasOne
+  posts: [Post] @hasMany
+}
+
+type Post @model @auth(rules: [
+  { allow: owner }, # 投稿者が編集可能
+  { allow: groups, groups: ["Teachers"], operations: [read, update, delete] } # 教師は管理可能
+]) {
+  id: ID!
+  content: String!
+  author: User @hasOne
+  lecture: Lecture @belongsTo
+  comments: [Comment] @hasMany
+}
+
+type Comment @model @auth(rules: [
+  { allow: owner }, # コメントした人のみ編集可能
+  { allow: groups, groups: ["Admins"], operations: [read, update, delete] } # 管理者は全権限
+]) {
+  id: ID!
+  content: String!
+  author: User @hasOne
+  post: Post @belongsTo
+}
+
+# 予定（Event）
+type Event @model @auth(rules: [
+  { allow: owner },
+  { allow: groups, groups: ["Admins"], operations: [read, update, delete] }
+]) {
+  id: ID!
+  description: String!  # "title" ではなく "description" に変更
+  date: AWSDateTime!  # AWSDate から AWSDateTime に変更（時間も扱える）
+}
