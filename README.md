@@ -1,83 +1,96 @@
-# NexusCloud
-
-AWS Amplify の認証機能と、PHPのバックエンド処理を組み合わせたシンプルな学習用掲示板アプリケーションです。  
-ユーザー登録・ログインはAmplifyでノーコード実装し、PHPでは投稿データの受け渡しと保存のみを担当します。
+# NexusCloud - コーディング要件定義書
 
 ---
 
-## 1. 使用技術
+■ プロジェクト概要
 
-| 項目         | 内容                                 |
-|--------------|--------------------------------------|
-| フロント     | React + AWS Amplify (Auth機能)       |
-| バックエンド | PHP 8.0（ビルトインサーバー使用）     |
-| 認証         | Amplify（Cognitoを内部で使用）       |
-| 通信形式     | REST API（JSON形式）                 |
-| データ保存   | テキストファイル（messages.txt）     |
+NexusCloudは、AWS Amplify の認証機能と、PHPによるバックエンド処理を組み合わせた
+超初心者向けの学習用掲示板アプリケーションです。
+
+ログイン・登録はAmplifyでノーコード実装し、
+PHPでは投稿データの保存・取得のみを担当します。
 
 ---
 
-## 2. システム構成図（簡易）
+■ 使用技術
 
-[User]  
-   ↓  
-React + Amplify (ログイン / 投稿画面)  
-   ↓ fetch() + JWTトークン（任意）  
-[PHP Backend]  
-├─ post_message.php（投稿保存）  
-└─ get_messages.php（投稿一覧取得）  
+・フロントエンド：React + AWS Amplify（Auth機能使用）
+・バックエンド　：PHP 8.0（ビルトインサーバー使用）
+・通信方式　　　：REST API（JSON）
+・認証　　　　　：AWS Cognito（Amplify経由）
+・データ保存　　：テキストファイル（messages.txt）
 
 ---
 
-## 3. 機能一覧
+■ システム構成図（簡易）
 
-### 3.1 Amplify（フロント側）
-
-| 機能           | 内容                                       |
-|----------------|--------------------------------------------|
-| ユーザー登録   | Amplify UI の `<Authenticator>` を使用    |
-| ログイン       | 上記と同様                                 |
-| トークン取得   | `Auth.currentSession()` でJWTトークンを取得|
-| API呼び出し    | fetchでPHPのAPIにデータ送信・取得         |
-
----
-
-### 3.2 PHP（バックエンド側）
-
-#### ① 投稿保存API（post_message.php）
-
-| 内容       | 詳細                                     |
-|------------|------------------------------------------|
-| リクエスト | POST（JSON: { "message": "xxx" }）       |
-| 処理内容   | messages.txt に1行ずつ追記保存           |
-| レスポンス | {"result": "OK"} を返す                  |
-
-#### ② 投稿取得API（get_messages.php）
-
-| 内容       | 詳細                           |
-|------------|--------------------------------|
-| リクエスト | GET（引数不要）                |
-| 処理内容   | messages.txt を全行取得         |
-| レスポンス | ["こんにちは", "おはよう"] の形式 |
+[User]
+   ↓
+React + Amplify（ログイン・投稿画面）
+   ↓ fetch()（+JWTトークン 任意）
+[PHP Backend]
+   ├─ post_message.php（投稿保存）
+   └─ get_messages.php（投稿取得）
 
 ---
 
-## 4. ディレクトリ構成（最低限）
+■ 機能一覧
+
+● フロントエンド（Amplify + React）
+
+- ユーザー登録・ログイン：Amplify UIコンポーネント（<Authenticator>）使用
+- ログイン状態に応じて画面を表示制御
+- fetchでPHP APIへ投稿送信、取得要求
+
+● バックエンド（PHP）
+
+① post_message.php
+- リクエスト：POST（JSON: { "message": "こんにちは" }）
+- 処理内容　：messages.txt に追記保存（1行ごと）
+- レスポンス：{ "result": "OK" }
+
+② get_messages.php
+- リクエスト：GET（引数なし）
+- 処理内容　：messages.txt の内容を全取得
+- レスポンス：["こんにちは", "おはよう"] のような配列形式
+
+---
+
+■ ディレクトリ構成（最低限）
+
 nexuscloud/
 ├── public/
-│ ├── post_message.php
-│ ├── get_messages.php
-│ └── messages.txt（手動で作成・空でも可）
+│   ├── post_message.php
+│   ├── get_messages.php
+│   └── messages.txt（空でOK、手動で作成）
 └── amplify/（Amplifyプロジェクト）
+    └── src/App.js（React + Auth UI + 投稿画面）
 
+---
 
-## 6. 実装の流れ（おすすめ順）
+■ チーム構成と役割分担（4名）
 
-1. `get_messages.php` と `post_message.php` を作ってローカル動作を確認  
-2. React + Amplify でログインUIと投稿フォームを実装  
-3. fetch で API にデータを送受信  
-4. 余裕が出たら、投稿に 日時 や ユーザー名 を追加  
-5. （必要に応じて）トークンを取得してログやヘッダーに表示  
+・玉谷　：PHPバックエンド開発（投稿保存・取得の処理）
+・林（貴）：Amplify導入・認証処理構築（ログイン／サインアップ）
+・林（晶）：React UI作成（投稿画面・一覧表示、fetch連携）
+・重森　：仕様書・README作成、構成図、プレゼン準備、GitHub整備
+
+---
+
+■ 開発スケジュール（目安）
+
+1週目：
+- 玉谷：post_message.php / get_messages.php 実装と保存テスト
+- 重森：構成図と仕様書ドラフト作成
+
+2週目：
+- 林（貴）：Amplify導入、<Authenticator>実装、ログイン成功確認
+- 林（晶）：ログイン後の投稿UI作成、fetchでメッセージ送信
+
+3週目：
+- 林（晶）：一覧表示実装、fetchでメッセージ取得
+- 重森：最終README / 発表資料完成
+- 全員：結合テストと確認
 
 ---
 
@@ -87,19 +100,9 @@ nexuscloud/
 
 ---
 
-## ⏳ 目安スケジュール
+■ 補足
 
-| 週    | やること                                      | 期間の目安 |
-|--------|-----------------------------------------------|------------|
-| 1週目 | PHPだけで掲示板を作る（認証なし）              | 3〜4日     |
-|        | ・post_message.php<br>・get_messages.php<br>・messages.txt に保存 |            |
-| 2週目 | Amplifyでログイン機能を作成                     | 4〜5日     |
-|        | ・ReactにAmplify導入<br>・ログインフォーム作成<br>・ログイン後だけPHPにアクセスできるようにする |            |
-| 3週目 | ReactからPHP APIを叩く処理を実装                | 3〜4日     |
-|        | ・fetch()で投稿処理<br>・取得APIで表示<br>・日時やユーザー名も保存（余裕があれば） |            |
+このプロジェクトは「初心者がチームで1から作れるWebアプリ」を目指した内容です。
+難しい外部通信やフレームワークは使わず、基本的な機能のみで構成しています。
 
 ---
-
-## 📝 ライセンス
-
-MIT License
